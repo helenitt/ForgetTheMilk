@@ -1,8 +1,9 @@
-﻿using System;
+﻿using ForgetTheMilk.Controllers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+
 
 namespace ConsoleVerification
 {
@@ -15,8 +16,8 @@ namespace ConsoleVerification
                 Console.WriteLine("Add a task: ");
                 var input = Console.ReadLine();
                 var task = new Task(input);
-                Console.WriteLine(task.Description);
-                Console.WriteLine(task.DueDate);
+                Console.WriteLine("Description: " + task.Description);
+                Console.WriteLine("Due Date: " + task.DueDate);
                 Console.WriteLine();
             }
         }
