@@ -1,0 +1,10 @@
+Existing scenarios
+-Description without due date
+-Description with due date
+
+Future scenarios
+-Due date year
+	-wrap year if day past
+	-don't wrap year if day not past
+	-user may want to supply year
+-Due Date month - other than may
