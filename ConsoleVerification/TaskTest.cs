@@ -1,44 +1,36 @@
 ﻿using ForgetTheMilk.Controllers;
+using NUnit.Framework;
 using System;
 
 namespace ConsoleVerification
 {
-    class Program
+    public class CreateTaskTest
     {
-        static void Main(string[] args)
-        {
-            TestDescriptionNoDueDate();
-            TestMayDueDateWrapsYear();
-            TestMayDueDateDoesNotWrapYear();
-
-            Console.ReadLine();
-        }
-
-        // Migrated to NUnit TaskTest
-        public static void TestDescriptionNoDueDate()
+        [Test]
+        public void DescriptionNoDueDate()
         {
             // Arrange
             var input = "Test Description No Due Date - Walk the Dog";
-            Console.WriteLine("Scenario: " + input);
+            var descriptionShouldBe = input;
+            DateTime? dueDateShouldBe = null;
 
             // Act
             var task = new Task(input, default(DateTime));
 
             // Assert
-            var descriptionShouldBe = input;
-            DateTime? dueDateShouldBe = null;
             var success = descriptionShouldBe == task.Description && dueDateShouldBe == task.DueDate;
             var failureMessage = "Description: " + task.Description + " should be " + descriptionShouldBe
                                  + Environment.NewLine
                                  + "Due Date: " + task.DueDate + " should be " + dueDateShouldBe;
-            PrintOutcome(success, failureMessage);
+
+            Assert.That(success, failureMessage);            
         }
 
-        private static void TestMayDueDateWrapsYear()
+        [Test]
+        public static void TestMayDueDateWrapsYear()
         {
             // Arrange
             var input = "Test Due Date - Day in Past - Holidays May 8 - As of 2015/5/31";
-            Console.WriteLine("Scenario: " + input);
             var today = new DateTime(2015, 5, 31);
 
             // Act
@@ -49,14 +41,14 @@ namespace ConsoleVerification
             var success = dueDateShouldBe == task.DueDate;
             var failureMessage = "Due Date: " + task.DueDate + " should be " + dueDateShouldBe;
 
-            PrintOutcome(success, failureMessage);
+            Assert.That(success, failureMessage);
         }
 
-        private static void TestMayDueDateDoesNotWrapYear()
+        [Test]
+        public static void TestMayDueDateDoesNotWrapYear()
         {
             // Arrange
             var input = "Test Due Date - Day in Future - Holidays May 8 - As of 2015/5/4";
-            Console.WriteLine("Scenario: " + input);
             var today = new DateTime(2015, 5, 4);
 
             // Act
@@ -64,24 +56,9 @@ namespace ConsoleVerification
 
             // Assert
             var dueDateShouldBe = new DateTime(2015, 5, 8);
-            var success = dueDateShouldBe == task.DueDate;
             var failureMessage = "Due Date: " + task.DueDate + " should be " + dueDateShouldBe;
 
-            PrintOutcome(success, failureMessage);
-        }
-
-        public static void PrintOutcome(bool success, string failureMessage)
-        {
-            if (success)
-            {
-                Console.WriteLine("SUCCESS");
-            }
-            else
-            {
-                Console.WriteLine("ERROR: ");
-                Console.WriteLine(failureMessage);
-            }
-            Console.WriteLine();
+            Assert.IsTrue(dueDateShouldBe == task.DueDate, failureMessage);
         }
     }
 }

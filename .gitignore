@@ -64,3 +64,4 @@ packages/*
 Logs
 TestResults
 gitLogs
+*.txt
