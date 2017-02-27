@@ -17,7 +17,7 @@ namespace ForgetTheMilk.Controllers
         [HttpPost]
         public ActionResult Add(string task)
         {
-            // For when date not manipulated
+            // For when date not manipulated use following
             //var taskItem = new Task(task, DateTime.Today);
             var date = new DateTime(2015, 5, 31);
             var taskItem = new Task(task, date);
