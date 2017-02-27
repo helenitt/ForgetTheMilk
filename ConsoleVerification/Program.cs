@@ -3,6 +3,8 @@ using System;
 
 namespace ConsoleVerification
 {
+    // This class is no longer needed once you have NUnit Tests 
+    // should be changed from console app to class library
     class Program
     {
         static void Main(string[] args)
@@ -14,7 +16,7 @@ namespace ConsoleVerification
             Console.ReadLine();
         }
 
-        // Migrated to NUnit TaskTest
+        // Extracted to NUnit TaskTest
         public static void TestDescriptionNoDueDate()
         {
             // Arrange

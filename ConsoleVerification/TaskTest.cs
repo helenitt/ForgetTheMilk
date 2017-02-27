@@ -4,30 +4,26 @@ using System;
 
 namespace ConsoleVerification
 {
-    public class CreateTaskTest
+    public class CreateTaskTest : AssertionHelper
     {
         [Test]
         public void DescriptionNoDueDate()
         {
             // Arrange
             var input = "Test Description No Due Date - Walk the Dog";
-            var descriptionShouldBe = input;
-            DateTime? dueDateShouldBe = null;
 
             // Act
             var task = new Task(input, default(DateTime));
 
             // Assert
-            var success = descriptionShouldBe == task.Description && dueDateShouldBe == task.DueDate;
-            var failureMessage = "Description: " + task.Description + " should be " + descriptionShouldBe
-                                 + Environment.NewLine
-                                 + "Due Date: " + task.DueDate + " should be " + dueDateShouldBe;
-
-            Assert.That(success, failureMessage);            
+            Assert.AreEqual(input, task.Description);
+            Assert.AreEqual(null, task.DueDate);
+            // Can use this one when you inherit from AssertionHelper
+            Expect(task.Description, Is.EqualTo(input));
         }
 
         [Test]
-        public static void TestMayDueDateWrapsYear()
+        public void MayDueDateWrapsYear()
         {
             // Arrange
             var input = "Test Due Date - Day in Past - Holidays May 8 - As of 2015/5/31";
@@ -37,15 +33,11 @@ namespace ConsoleVerification
             var task = new Task(input, today);
 
             // Assert
-            var dueDateShouldBe = new DateTime(2016, 5, 8);
-            var success = dueDateShouldBe == task.DueDate;
-            var failureMessage = "Due Date: " + task.DueDate + " should be " + dueDateShouldBe;
-
-            Assert.That(success, failureMessage);
+            Expect(task.DueDate, Is.EqualTo(new DateTime(2016, 5, 8)));
         }
 
         [Test]
-        public static void TestMayDueDateDoesNotWrapYear()
+        public void MayDueDateDoesNotWrapYear()
         {
             // Arrange
             var input = "Test Due Date - Day in Future - Holidays May 8 - As of 2015/5/4";
@@ -55,10 +47,7 @@ namespace ConsoleVerification
             var task = new Task(input, today);
 
             // Assert
-            var dueDateShouldBe = new DateTime(2015, 5, 8);
-            var failureMessage = "Due Date: " + task.DueDate + " should be " + dueDateShouldBe;
-
-            Assert.IsTrue(dueDateShouldBe == task.DueDate, failureMessage);
+            Expect(task.DueDate, Is.EqualTo(new DateTime(2015, 5, 8)));
         }
     }
 }
