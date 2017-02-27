@@ -1,12 +1,10 @@
 ﻿using ForgetTheMilk.Controllers;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 
 namespace ConsoleVerification
 {
+    // This class is no longer needed once you have NUnit Tests 
+    // should be changed from console app to class library
     class Program
     {
         static void Main(string[] args)
@@ -18,7 +16,8 @@ namespace ConsoleVerification
             Console.ReadLine();
         }
 
-        private static void TestDescriptionNoDueDate()
+        // Extracted to NUnit TaskTest
+        public static void TestDescriptionNoDueDate()
         {
             // Arrange
             var input = "Test Description No Due Date - Walk the Dog";
@@ -73,7 +72,7 @@ namespace ConsoleVerification
             PrintOutcome(success, failureMessage);
         }
 
-        private static void PrintOutcome(bool success, string failureMessage)
+        public static void PrintOutcome(bool success, string failureMessage)
         {
             if (success)
             {
